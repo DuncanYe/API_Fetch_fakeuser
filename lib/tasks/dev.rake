@@ -26,4 +26,23 @@ namespace :dev do
 
     puts "now have #{User.count} users data."
   end
+
+  task fake_photo: :environment do
+
+    Photo.destroy_all
+
+    3.times do  |i|
+
+    file = File.open("#{Rails.root}/public/my-photo/photo#{i+1}.jpg")
+    
+      photo = Photo.new(
+        title: FFaker::JobJA.title,
+        date: FFaker::Time.date,
+        description: FFaker::Lorem.sentence,
+        file_location: file
+        )
+      photo.save!
+      puts photo.title
+    end
+  end
 end
