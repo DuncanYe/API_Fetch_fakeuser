@@ -2,6 +2,7 @@ class Api::V1::UsersController < ApiController
 
   def index
     @users = User.all
+    # render json: @users
     render json: {
       data: @users.map do |user|
         {
@@ -31,6 +32,26 @@ class Api::V1::UsersController < ApiController
         avatar: @user.avatar
       }
     end
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+       render json: {
+        message: "User created successfully!",
+        status: @user
+        }
+    else
+      render json: {
+        errors: @user.errors
+      }
+    end
+  end
+
+  private
+
+  def user_params
+    params.permit(:email, :name, :gender, :age, :region, :phone, :avatar)
   end
 
 end
