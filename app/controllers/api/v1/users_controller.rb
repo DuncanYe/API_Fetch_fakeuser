@@ -39,8 +39,22 @@ class Api::V1::UsersController < ApiController
     if @user.save
        render json: {
         message: "User created successfully!",
-        status: @user
+        result: @user
         }
+    else
+      render json: {
+        errors: @user.errors
+      }
+    end
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    if @user.update
+      render json: {
+        message: "User updated successfully"
+        result: @user
+      }
     else
       render json: {
         errors: @user.errors
