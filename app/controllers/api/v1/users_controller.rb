@@ -52,7 +52,7 @@ class Api::V1::UsersController < ApiController
     @user = User.find_by(id: params[:id])
     if @user.update
       render json: {
-        message: "User updated successfully"
+        message: "User updated successfully",
         result: @user
       }
     else
@@ -60,6 +60,14 @@ class Api::V1::UsersController < ApiController
         errors: @user.errors
       }
     end
+  end
+
+  def destroy
+    @user = User.find_by(id: params[:id])
+    @user.destroy
+    render json: {
+      message: "user destroy successfully"
+    }
   end
 
   private
