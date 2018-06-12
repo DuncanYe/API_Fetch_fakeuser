@@ -8,6 +8,10 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
+
+      post "/login" => "auth#login"
+      post "/logout" => "auth#logout"
+
       resources :photos, only: [:index, :create, :show, :update, :destroy]
     end
   end
@@ -18,7 +22,7 @@ Rails.application.routes.draw do
     end
   end
 
-  # 網址上有兩層 namespace，除了識別用的 /api，api有可能會更新，加上了版號 /v1提供識別用。
+  # 網址上有兩層 namespace，除了識別用的 /api以外，因為api有可能會更新，加上了版號 /v1提供識別用。
   # defaults: { format: :json } 將回傳給客戶端的格式預設為 JSON。
 
 end
